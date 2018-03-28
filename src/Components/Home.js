@@ -1,7 +1,27 @@
 import React, {Component} from 'react';
 import UserItem from './UserItem';
+import ArrowDown from './ArrowDown';
+import ArrowUp from './ArrowUp';
 
 class Home extends Component {
+  state = {
+    ascendingOrder: false,
+  };
+
+  sortByName = () => {
+    this.props.sortByName();
+    this.setState({ascendingOrder: !this.state.ascendingOrder});
+  };
+
+  sortByPostsNumber = () => {
+    this.props.sortByPostsNumber();
+    this.setState({ascendingOrder: !this.state.ascendingOrder});
+  };
+  sortByCommentsPerPost = () => {
+    this.props.sortByCommentsPerPost();
+    this.setState({ascendingOrder: !this.state.ascendingOrder});
+  };
+
   render() {
     let users;
     if (this.props.users) {
@@ -18,9 +38,27 @@ class Home extends Component {
           <table className="table table-striped">
             <thead>
             <tr>
-              <td>Name <span onClick={this.props.sortByName}>sort</span></td>
-              <td>Posts <span onClick={this.props.sortByPostsNumber}>sort</span></td>
-              <td>Comments/Post <span onClick={this.props.sortByCommentsPerPost}>sort</span></td>
+              <td>Name <span onClick={this.sortByName}>
+                {
+                  this.state.ascendingOrder
+                      ? <ArrowDown/>
+                      : <ArrowUp/>
+                }
+              </span></td>
+              <td>Posts <span onClick={this.sortByPostsNumber}>
+                {
+                  this.state.ascendingOrder
+                      ? <ArrowDown/>
+                      : <ArrowUp/>
+                }
+              </span></td>
+              <td>Comments/Post <span onClick={this.sortByCommentsPerPost}>
+                {
+                  this.state.ascendingOrder
+                      ? <ArrowDown/>
+                      : <ArrowUp/>
+                }
+              </span></td>
             </tr>
             </thead>
             <tbody>

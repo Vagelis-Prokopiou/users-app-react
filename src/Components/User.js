@@ -38,7 +38,7 @@ class User extends Component {
               <p>{post.body}</p>
 
               <div className="comments">
-                <p>{comments.length} comments <span onClick={this.showComments}>+</span></p>
+                <p>{comments.length} comments <span className="show-comments" onClick={this.showComments}>+</span></p>
                 {this.state.showComments && comments}
                 {this.state.showComments && <hr/>}
               </div>

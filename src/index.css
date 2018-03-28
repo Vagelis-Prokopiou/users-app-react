@@ -4,6 +4,10 @@ body {
     font-family: sans-serif;
 }
 
+.show-comments {
+    cursor: pointer;
+}
+
 .comment {
     padding-left: 20px;
 }
