@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import UserItem from './UserItem';
 
-class Home extends Component {
-  render() {
+class Home extends Component
+{
+  render()
+  {
     let users;
-    users = this.props.users.map((user) => {
-      return (
-          <UserItem key={user.id} user={user}/>
-      );
-    });
+    if (this.props.users)
+    {
+      users = this.props.users.map((user) =>
+      {
+        return (
+            <UserItem key={user.id} user={user}/>
+        );
+      });
+    }
 
     return (
         <div className="user">
@@ -24,7 +30,7 @@ class Home extends Component {
             </tr>
             </thead>
             <tbody>
-            {users}
+            {users ? users : 'Loading...'}
             </tbody>
           </table>
         </div>
