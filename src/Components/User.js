@@ -21,6 +21,18 @@ class User extends Component
 
   render()
   {
+    console.log('this.props.posts', this.props.posts);
+
+    const posts = this.props.posts.map(post =>
+    {
+      return (
+          <div className="post">
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </div>
+      );
+    });
+
     return (
         <div className="container">
           <div className="row">
@@ -35,7 +47,7 @@ class User extends Component
                 }
               </h1>
               <div className='posts'>
-                <p>Posts</p>
+                {posts}
               </div>
             </div>
 
