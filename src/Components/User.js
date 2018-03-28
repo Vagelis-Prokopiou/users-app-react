@@ -36,7 +36,7 @@ class User extends Component
     return (
         <div className="container">
           <div className="row">
-            <div className="user col-xs-8">
+            <div className="col-sm-8 user">
               <button><Link to="/">Back</Link></button>
               <br/>
               <h1>
@@ -51,7 +51,7 @@ class User extends Component
               </div>
             </div>
 
-            <div className='user-details col-xs-4'>
+            <div className='col-sm-4 user-details'>
               <button onClick={this.onClick}>User details</button>
               {
                 this.state.showUserDetails
