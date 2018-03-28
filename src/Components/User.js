@@ -19,8 +19,8 @@ class User extends Component {
   render() {
     const posts = this.props.posts.map(post => {
       return (
-          <div className="post">
-            <h2>{post.title}</h2>
+          <div className="post" key={post.id}>
+            <h4>{post.title}</h4>
             <p>{post.body}</p>
           </div>
       );
@@ -30,8 +30,10 @@ class User extends Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-8 user">
-              <button><Link to="/">Home</Link></button>
-              <br/>
+              <div>
+                <button><Link to="/">Home</Link></button>
+                <br/><br/>
+              </div>
               <h1>
                 {
                   (this.props.user && this.props.user.name)
