@@ -16,7 +16,7 @@ class App extends Component {
     };
 
     this.sortByName = this.sortByName.bind(this);
-    this.sortByCommentsNumber = this.sortByCommentsNumber.bind(this);
+    this.sortByPostsNumber = this.sortByPostsNumber.bind(this);
     this.sortByCommentsPerPost = this.sortByCommentsPerPost.bind(this);
   }
 
@@ -58,8 +58,8 @@ class App extends Component {
       ascendingOrder: !this.state.ascendingOrder,
     });
   };
-  sortByCommentsNumber = () => {
-    console.log('sortByCommentsNumber run');
+  sortByPostsNumber = () => {
+    console.log('sortByPostsNumber run');
     const sortedUsers = this.customSort('numberOfPosts');
     this.setState({
       users: sortedUsers,
@@ -112,7 +112,7 @@ class App extends Component {
                 return <Home
                     users={this.state.users}
                     sortByName={this.sortByName}
-                    sortByCommentsNumber={this.sortByCommentsNumber}
+                    sortByPostsNumber={this.sortByPostsNumber}
                     sortByCommentsPerPost={this.sortByCommentsPerPost}
                 />;
               }}/>
