@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Plus from './Plus';
+import Minus from './Minus';
 
 class User extends Component {
   constructor(props) {
@@ -38,7 +40,9 @@ class User extends Component {
               <p>{post.body}</p>
 
               <div className="comments">
-                <p>{comments.length} comments <span className="show-comments" onClick={this.showComments}>+</span></p>
+                <p>{comments.length} comments <span className="show-comments" onClick={this.showComments}>
+                  {this.state.showComments ? <Minus/> : <Plus/>}
+                </span></p>
                 {this.state.showComments && comments}
                 {this.state.showComments && <hr/>}
               </div>
