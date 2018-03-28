@@ -7,6 +7,7 @@ class User extends Component {
 
     this.state = {
       showUserDetails: false,
+      showComments: false,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -16,14 +17,33 @@ class User extends Component {
     this.setState({showUserDetails: !this.state.showUserDetails});
   };
 
+  showComments = () => {
+    console.log('showComments clicked');
+    this.setState({showComments: !this.state.showComments});
+  };
+
   render() {
     let posts = [];
     if (this.props.user && this.props.user.posts) {
       posts = this.props.user.posts.map(post => {
+        // Todo. Before returning get comments per post
+        const comments = this.props.user.comments.filter(comment => { return comment.postId === post.id; });
+        const newComments = comments.map(comment => {
+          return (
+              <p key={comment.id} className="comment">{comment.body}</p>
+          );
+        });
+
         return (
             <div className="post" key={post.id}>
               <h4>{post.title}</h4>
               <p>{post.body}</p>
+
+              <div className="comments">
+                <p>{comments.length} comments <span onClick={this.showComments}>+</span></p>
+                {this.state.showComments && newComments}
+                {this.state.showComments && <hr/>}
+              </div>
             </div>
         );
       });
