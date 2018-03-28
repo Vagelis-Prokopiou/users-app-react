@@ -17,14 +17,17 @@ class User extends Component {
   };
 
   render() {
-    const posts = this.props.posts.map(post => {
-      return (
-          <div className="post" key={post.id}>
-            <h4>{post.title}</h4>
-            <p>{post.body}</p>
-          </div>
-      );
-    });
+    let posts = [];
+    if (this.props.user && this.props.user.posts) {
+      posts = this.props.user.posts.map(post => {
+        return (
+            <div className="post" key={post.id}>
+              <h4>{post.title}</h4>
+              <p>{post.body}</p>
+            </div>
+        );
+      });
+    }
 
     return (
         <div className="container">
@@ -42,7 +45,9 @@ class User extends Component {
                 }
               </h1>
               <div className='posts'>
-                {posts}
+                {
+                  posts.length > 0 ? posts : 'Loading posts...'
+                }
               </div>
             </div>
 
