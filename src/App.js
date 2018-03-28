@@ -134,7 +134,6 @@ class App extends Component {
                     posts={this.state.posts.filter(post => {
                       return post.userId.toString() === match.params.userID;
                     })}
-                    users={this.state.users}
                 />;
               }}/>
             </Switch>
