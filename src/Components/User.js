@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link} from 'react-router-dom';
 
 class User extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class User extends Component {
   render() {
     return (
         <div className="user">
+          <button><Link to="/">Back</Link></button>
+          <br/>
           <h1>
             {
               (this.props.user && this.props.user.name)
