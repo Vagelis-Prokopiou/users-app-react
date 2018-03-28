@@ -4,10 +4,8 @@ import User from './Components/User';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-class App extends Component
-{
-  constructor(props)
-  {
+class App extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -22,34 +20,29 @@ class App extends Component
     this.sortByCommentsPerPost = this.sortByCommentsPerPost.bind(this);
   }
 
-  customSort = (property) =>
-  {
+  customSort = (property) => {
     const self = this;
-    return this.state.users.sort((a, b) =>
-    {
-      if (typeof a[property] === 'string' && typeof b[property] === 'string')
-      {
+    return this.state.users.sort((a, b) => {
+      if (typeof a[property] === 'string' && typeof b[property] === 'string') {
         const nameA = a[property].toUpperCase();
         const nameB = b[property].toUpperCase();
-        if (nameA < nameB)
-        {
-          if (self.state.ascendingOrder)
-          { return -1; }
+        if (nameA < nameB) {
+          if (self.state.ascendingOrder) {
+            return -1;
+          }
           return 1;
         }
-        if (nameA > nameB)
-        {
-          if (self.state.ascendingOrder)
-          { return 1; }
+        if (nameA > nameB) {
+          if (self.state.ascendingOrder) {
+            return 1;
+          }
           return -1;
         }
         return 0;
       }
 
-      if (typeof a[property] === 'number' && typeof b[property] === 'number')
-      {
-        if (self.state.ascendingOrder)
-        {
+      if (typeof a[property] === 'number' && typeof b[property] === 'number') {
+        if (self.state.ascendingOrder) {
           return a[property] - b[property];
         }
         return b[property] - a[property];
@@ -57,8 +50,7 @@ class App extends Component
     });
   };
 
-  sortByName = () =>
-  {
+  sortByName = () => {
     console.log('sortByName run');
     const sortedUsers = this.customSort('name');
     this.setState({
@@ -66,8 +58,7 @@ class App extends Component
       ascendingOrder: !this.state.ascendingOrder,
     });
   };
-  sortByCommentsNumber = () =>
-  {
+  sortByCommentsNumber = () => {
     console.log('sortByCommentsNumber run');
     const sortedUsers = this.customSort('numberOfPosts');
     this.setState({
@@ -75,8 +66,7 @@ class App extends Component
       ascendingOrder: !this.state.ascendingOrder,
     });
   };
-  sortByCommentsPerPost = () =>
-  {
+  sortByCommentsPerPost = () => {
     console.log('sortByCommentsPerPost run');
     const sortedUsers = this.customSort('commentsPerPost');
     this.setState({
@@ -85,34 +75,40 @@ class App extends Component
     });
   };
 
-  getData = async (url) =>
-  {
-    try
-    {
+  getData = async (url) => {
+    try {
       const response = await fetch(url);
       return await response.json();
     }
-    catch (e)
-    {
+    catch (e) {
       console.log('Error!', e);
     }
   };
 
-  componentWillMount()
-  {
-    this.getData('http://jsonplaceholder.typicode.com/users').then(data => { this.setState({users: data,}); });
-    this.getData('http://jsonplaceholder.typicode.com/posts').then(data => { this.setState({posts: data,}); });
+  componentWillMount() {
     this.getData('http://jsonplaceholder.typicode.com/comments').then(data => { this.setState({comments: data,}); });
+    this.getData('http://jsonplaceholder.typicode.com/users').then(data => { this.setState({users: data,}); });
+    this.getData('http://jsonplaceholder.typicode.com/posts').then(data => {
+      this.setState({posts: data,});
+
+      const usersWithAssociatedPosts = [];
+      this.state.users.forEach(user => {
+        user.posts = this.state.posts.filter(post => {
+          return post.userId === user.id;
+        });
+        usersWithAssociatedPosts.push(user);
+      });
+
+      this.setState({users: usersWithAssociatedPosts});
+    });
   }
 
-  render()
-  {
+  render() {
     return (
         <div className="App">
           <Router>
             <Switch>
-              <Route exact path="/" render={() =>
-              {
+              <Route exact path="/" render={() => {
                 return <Home
                     users={this.state.users}
                     sortByName={this.sortByName}
@@ -120,15 +116,12 @@ class App extends Component
                     sortByCommentsPerPost={this.sortByCommentsPerPost}
                 />;
               }}/>
-              <Route path="/user/:userID" render={({match}) =>
-              {
+              <Route path="/user/:userID" render={({match}) => {
                 return <User
-                    user={this.state.users.find(user =>
-                    {
+                    user={this.state.users.find(user => {
                       return user.id.toString() === match.params.userID;
                     })}
-                    posts={this.state.posts.filter(post =>
-                    {
+                    posts={this.state.posts.filter(post => {
                       return post.userId.toString() === match.params.userID;
                     })}
                     users={this.state.users}

@@ -8,7 +8,13 @@ const UserItem = props => (
           {props.user.name}
         </Link>
       </td>
-      <td>{props.user.numberOfPosts}</td>
+      <td>
+        {
+          props.user.posts && props.user.posts.length
+              ? props.user.posts.length
+              : null
+        }
+      </td>
       <td>{props.user.commentsPerPost}</td>
     </tr>
 );
