@@ -18,7 +18,8 @@ class Home extends Component
 
     return (
         <div className="user">
-          <table>
+          <h1>Users</h1>
+          <table className="table table-striped">
             <thead>
             <tr>
               <td>Name <span onClick={this.props.sortByName}>sort</span></td>
