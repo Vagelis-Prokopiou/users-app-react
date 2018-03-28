@@ -19,11 +19,8 @@ class Home extends Component {
             <thead>
             <tr>
               <td>Name <span onClick={this.props.sortByName}>sort</span></td>
-              <td>Posts <span
-                  onClick={this.props.sortByPostsNumber}>sort</span>
-              </td>
-              <td>Comments/Post <span
-                  onClick={this.props.sortByCommentsPerPost}>sort</span></td>
+              <td>Posts <span onClick={this.props.sortByPostsNumber}>sort</span></td>
+              <td>Comments/Post <span onClick={this.props.sortByCommentsPerPost}>sort</span></td>
             </tr>
             </thead>
             <tbody>

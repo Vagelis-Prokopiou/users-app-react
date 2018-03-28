@@ -17,7 +17,7 @@ const UserItem = props => (
       </td>
       <td>{
         props.user.comments && props.user.comments.length
-            ? props.user.comments.length
+            ? props.user.comments.length / props.user.posts.length
             : null
       }</td>
     </tr>
