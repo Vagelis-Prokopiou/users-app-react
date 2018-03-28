@@ -86,20 +86,30 @@ class App extends Component {
   };
 
   componentWillMount() {
-    this.getData('http://jsonplaceholder.typicode.com/comments').then(data => { this.setState({comments: data,}); });
-    this.getData('http://jsonplaceholder.typicode.com/users').then(data => { this.setState({users: data,}); });
-    this.getData('http://jsonplaceholder.typicode.com/posts').then(data => {
-      this.setState({posts: data,});
 
-      const usersWithAssociatedPosts = [];
-      this.state.users.forEach(user => {
-        user.posts = this.state.posts.filter(post => {
-          return post.userId === user.id;
+    this.getData('http://jsonplaceholder.typicode.com/users').then(data => {
+      this.setState({users: data});
+      this.getData('http://jsonplaceholder.typicode.com/posts').then(data => {
+        this.setState({posts: data});
+        this.getData('http://jsonplaceholder.typicode.com/comments').then(data => {
+          this.setState({comments: data});
+
+          // Associate posts and comments with users.
+          const updatedUsers = [];
+          this.state.users.forEach(user => {
+            user.posts = this.state.posts.filter(post => {
+              return post.userId === user.id;
+            });
+            user.postIDs = user.posts.map(post => post.id);
+            user.comments = this.state.comments.filter(comment => {
+              return (user.postIDs.indexOf(comment.postId) > -1);
+            });
+
+            updatedUsers.push(user);
+            this.setState({users: updatedUsers});
+          });
         });
-        usersWithAssociatedPosts.push(user);
       });
-
-      this.setState({users: usersWithAssociatedPosts});
     });
   }
 
