@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-class User extends Component
-{
-  constructor(props)
-  {
+class User extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -14,17 +12,12 @@ class User extends Component
     this.onClick = this.onClick.bind(this);
   }
 
-  onClick = () =>
-  {
+  onClick = () => {
     this.setState({showUserDetails: !this.state.showUserDetails});
   };
 
-  render()
-  {
-    console.log('this.props.posts', this.props.posts);
-
-    const posts = this.props.posts.map(post =>
-    {
+  render() {
+    const posts = this.props.posts.map(post => {
       return (
           <div className="post">
             <h2>{post.title}</h2>
@@ -37,7 +30,7 @@ class User extends Component
         <div className="container">
           <div className="row">
             <div className="col-sm-8 user">
-              <button><Link to="/">Back</Link></button>
+              <button><Link to="/">Home</Link></button>
               <br/>
               <h1>
                 {
@@ -56,10 +49,10 @@ class User extends Component
               {
                 this.state.showUserDetails
                     ? <div>
-                      <p>{this.props.user.name}</p>
-                      <p>{this.props.user.email}</p>
-                      <p>{this.props.user.address.street}</p>
-                      <p>{this.props.user.address.suite}</p>
+                      <p>Name: {this.props.user.name}</p>
+                      <p>Email: {this.props.user.email}</p>
+                      <p>Street: {this.props.user.address.street}</p>
+                      <p>Number: {this.props.user.address.suite}</p>
                     </div>
                     : null
               }
